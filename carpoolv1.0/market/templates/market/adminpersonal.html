@@ -1,0 +1,205 @@
+{% extends 'adminbase.html' %}
+{% block title %}个人中心{% endblock %}
+{% block content %}
+{% load static %}
+<head>
+    <title>个人中心</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Chrome">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Tooplate">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <link rel="stylesheet" href="{% static 'personal/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'personal/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'personal/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'personal/css/owl.theme.default.min.css' %}">
+    <script defer src="{% static 'personal/assets/fontawesome/js/all.min.js' %}"></script>
+         <!--MAIN CSS -->
+    <link rel="stylesheet" href="{% static 'personal/css/tooplate-style.css' %}">
+</head>
+
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+
+    <div class="bianju_grzx">
+        <div class="project-top-patination">
+            <p>用户个人中心</p>
+        </div>
+    </div>
+
+    <div class="info_self bianju_grzx">
+        <div class="col_grzx span_1_of_3">
+            <div class="contact_info">
+
+                <div class="map">
+                    <img src="{% static 'personal/images/touxiang.jpg' %}" alt="" height="200px" width="200px">
+                </div>
+                <div class="company_address" style="font-size: 20px;margin-left: 10px;margin-top: 0px;padding-top: 0px;">
+
+                    <h3 style="margin-left:35px;margin-bottom:10px;font-weight: 400;">{{user_info.name}}</h3>
+                    <p>性别：{{ user_info.sex }}</p>
+                    <p>邮箱：{{ user_info.email }}</p>
+                    <p>联系方式: {{ user_info.contact }}</p>
+                    <p>信誉分: {{ user_info.credit }}</p>
+                    {% if user_info.state %}
+                        <p>认证状态：已认证</td>
+                    {% else %}
+                        <p>认证状态：未认证</p>
+                    {% endif %}
+                    <!-- <button style="margin-left: 50px;color:black">修改信息</button> -->
+                </div>
+            </div>
+        </div>
+        <div class="col span_2_of_3" style="margin-left:300px">
+                    <div class="contact-form">
+                        <div>
+                            <br>
+                        <h3 style="font-weight: 700">用户发布的订单</h3>
+                        {% if public_booklist %}
+                        <br>
+                        <br>
+                        
+                   
+                        
+                        <div style = "overflow: scroll; width: 120%; height: 250px;" >
+                            
+                            <table border="1" class="hovertable" style="font-size: 13px;">
+                                <thead>
+                                    <th>出发时间</th>
+                                    <th>出发地</th>
+                                    <th>目的地</th>
+                                    <th>剩余座位</th>
+                                    <th>附加信息</th>
+                                    <th>参与用户</th>
+                                    <th>安全系数</th>
+                                    <th width=10%>联系方式</th>
+                                    <th width=10%>编辑</th>
+                                </thead>
+                                <tbody>
+                                    {% for book in public_booklist %}
+                                    <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                                                                        <td>{{ book.time }}</td>
+                                                                        <td>{{ book.departure }}</td>
+                                                                        <td>{{ book.destination }}</td>
+                                                                        <td>{{ book.seats }}</td>
+                                                                        <td>{{ book.addinfo }}</td>
+                                                                        <td>{{ book.attends }}</td>
+                                                                        <td>{{ book.safe }}</td>
+                                                                        <td><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1353064275&amp;site=qq&amp;menu=yes" title="{{ book.contact }}">{{ book.contact }}</a></td>
+                                                                        <td> <p><a onclick="return deleteorder();" href="/cancel/{{ book.id }}" >取消</a></p></td>
+                                                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>  
+                                </div>
+                                  <script type="text/javascript" language="JavaScript">
+                                        function deleteorder()
+                                        {
+                                             if(confirm("确定要取消该订单吗?"))
+                                             {
+                                                 return true;
+                                             }else{
+                                                 return false;
+                                             }
+                                        }
+                                      </script>
+                            {% endif %}
+                            
+                            <br>
+                            <h3 style="font-weight: 700;">用户参与的订单</h3>
+                            <br>
+                            <br>
+                            <div style = "overflow: scroll; width: 120%; height: 250px;" >
+                                {% if attend_booklist %}
+            <table border="1" class="hovertable" style="font-size: 13px;">
+                <thead>
+                    <th>出发时间</th>
+                    <th>出发地</th>
+                    <th>目的地</th>
+                    <th>剩余座位数</th>
+                    <th>附加信息</th>
+                    <th>参与用户</th>
+                    <th>安全系数</th>
+                    <th>联系方式</th>
+                    
+                    <th>编辑</th>
+                </thead>
+                <tbody>
+                {% for book in attend_booklist %}
+                <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                        <td>{{ book.time }}</td>
+                        <td>{{ book.departure }}</td>
+                        <td>{{ book.destination }}</td>
+                        <td>{{ book.seats }}</td>
+                        <td>{{ book.addinfo }}</td>
+                        <td>{{ book.attends }}</td>
+                        <td>{{ book.safe }}</td>
+                        <td>{{ book.contact }}</td>
+                        
+                        <td><a onclick="return deleteorder();" href="/cancel/{{ book.id }}">取消该订单</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>    
+        {% endif %}
+                            </div>
+                            <br>
+                            
+                            <h3 style="font-weight: 700;">用户的投诉</h3>
+                            <br>
+                            <br>
+                            <div style = "overflow: scroll; width: 120%; height: 250px;" >
+                                {% if complaint_info %}
+        <table border="1" class="hovertable" style="font-size: 13px;">
+                <thead>
+                    <th>投诉用户</th>
+                    <th>被投诉用户</th>
+                    <th>投诉内容</th>
+                    <th>处理状态</th>
+                </thead>
+                <tbody>
+                {% for c in complaint_info %}
+                <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                        <td>{{ c.userac.name }}</td>
+                        <td>{{ c.userpa.name }}</td>
+                        <td>{{ c.content }}</td>
+                        <td>{{ c.processstate }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>  
+              <br><br><br><br>
+        {% endif %}
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+    <!-- SCRIPTS -->
+    <script src="{% static 'personal/js/jquery.js' %}"></script>
+    <script src="{% static 'personal/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'personal/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'personal/js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'personal/js/wow.min.js' %}"></script>
+    <script src="{% static 'personal/js/smoothscroll.js' %}"></script>
+    <script src="{% static 'personal/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'personal/js/custom.js' %}"></script>
+
+</body>
+
+</html>

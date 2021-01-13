@@ -1,0 +1,35 @@
+{% extends 'adminbase.html' %}
+{% block title %}管理员中心{% endblock %}
+{% block content %}
+{% if identlist %}
+<br><br><br><br>
+    <table border="1" class="hovertable" style="font-size: 20px;" align="center">
+        <thead>
+            <th>用户id</th>
+            <th>用户学号</th>
+            <th>内容</th>
+            <th>处理状态</th>
+            <th colspan="2">编辑</th>
+        </thead>
+        <tbody>
+        {% for ident in identlist %}
+        <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                <td>{{ ident.userid }}</td>
+                <td>{{ ident.stunumber }}</td>
+                <td>{{ ident.content }}</td>
+                <td>{{ ident.identifystate }}</td>
+                <td><form action="/identprocess/{{ ident.id }}/pass" method="post" class="form-report">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">通过</button>
+                </form></td>
+                <td><form action="/identprocess/{{ ident.id }}/reject" method="post" class="form-report">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">拒绝</button>
+                </form></td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

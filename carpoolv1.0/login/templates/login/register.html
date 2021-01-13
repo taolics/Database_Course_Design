@@ -1,0 +1,122 @@
+<!--A Design by W3layouts
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<title>四川大学拼车系统</title>
+<!-- custom-theme -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Course Register Form Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //custom-theme -->
+<!-- css files -->
+<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+<link href="{% static 'css/style.css'%}" type="text/css" rel="stylesheet" media="all">
+<!-- //css files -->
+
+<link rel="stylesheet" href="{% static 'css/font-awesome.css'%}"> <!-- Font-Awesome-Icons-CSS -->
+
+</head>
+<!-- body starts -->
+<body>
+<!-- section -->
+<section class="register">
+	<div class="register-full">
+		<div class="register-left">
+			<div class="register">
+				<div class="logo">
+					<a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span></a>
+				</div>
+				<h1>四川大学拼车系统</h1>
+				<p style="font-size: 16px">四川大学拼车系统介绍</p>
+				<div class="content3">
+					<ul>
+						<li>
+							<a href="/login/" class="text-success " >
+                                直接登录
+                            </a>
+						</li>
+
+						<li><a class="read" href="/terms/" > 用户使用手册</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="register-right">
+			<div class="register-in">
+				<div class="register-form">
+                <form class="form-register" action="/register/" method="post">
+
+                    {% if register_form.captcha.errors %}
+                        <script  > alert("{{ register_form.captcha.errors }}");</script>
+                    {% elif message %}
+                        <script >alert("{{ message }}");</script>
+                    {% endif %}
+
+                  {% csrf_token %}
+					<h2><span class="fa fa-pencil"></span> 欢迎注册 </h2>
+                  <div class="form-group" style="color:white">
+                      {{ register_form.username.label_tag }}
+                      {{ register_form.username}}
+                  </div>
+                  <div class="form-group" style="color:white">
+                      {{ register_form.password1.label_tag }}
+                      {{ register_form.password1 }}
+                  </div>
+                  <div class="form-group" style="color:white">
+                      {{ register_form.password2.label_tag }}
+                      {{ register_form.password2 }}
+                  </div>
+                  <div class="form-group" style="color:white">
+                      {{ register_form.email.label_tag }}
+                      {{ register_form.email }}
+                  </div>
+                  <div class="form-group" style="color:white">
+                      {{ register_form.contact.label_tag }}
+                      {{ register_form.contact }}
+                  </div>
+                  <div class="form-group" style="color:white">
+                      {{ register_form.sex.label_tag }}
+                      {{ register_form.sex }}
+                  </div>
+                  <div>
+                      <h3 style="color:white;font-size: 16px">注意：联系方式是用户作为发布者时，其他订单参与者与之联系的方式，安全起见，建议使用QQ号等</h3>
+                      <label class="checkbox"><input type="checkbox" id = "checkbox" name="checkbox" ><i></i>I agree to the <a href="/terms/">Terms and Conditions</a></label>
+                  </div>
+
+                  <div>
+					  <input onclick = "return check();" type="submit" class="btn btn-primary float-right" value="注册">
+
+                  </div>
+                  <script>
+      function check(){
+  if(!document.getElementById("checkbox").checked){
+    alert("请同意用户协议");
+    return false}
+  return true
+  }
+</script>
+                </form>
+				</div>
+            </div>
+			<div class="clear"> </div>
+		</div>
+	<div class="clear"> </div>
+	</div>
+	<!-- copyright -->
+	<p class="agile-copyright">© 2020 SCU Carpool. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">3L</a></p>
+	<!-- //copyright -->
+</section>
+<!-- //section -->
+</body>	
+<!-- //body ends -->
+</html>

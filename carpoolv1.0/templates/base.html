@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>川大拼车</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    {% block style %}
+    {% endblock %}
+</head>
+
+<style>
+        .main {
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+        .search_form {
+            background-color: white;
+            margin-top: 25px;
+            height: 90px;
+        }
+        .search_head {
+            background-color: #f1f1f1;
+            margin-top: 10px;
+            height: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .search_result_by_ltime { /*背景色与网页背景色相同*/
+            background-color: #f1f1f1;
+            margin-top: 10px;
+        }
+        .search_result_by_price { /*背景色与网页背景色相同*/
+            background-color: #f1f1f1;
+            margin-top: 10px;
+        }
+        .one_line {
+            background-color: white;
+            height: 90px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .ico_search_type {
+            display: inline-block; /*同行显示*/
+            width: 20px;
+            height: 20px;
+            background: url('http://pic.c-ctrip.com/flight/searchlist/icon_search_select.png') no-repeat;
+        }
+        .ico_search_lcity {
+            background-position: 0 0;
+        }
+        .ico_search_acity {
+            background-position: 0 -20px;
+        }
+        .ico_search_ldate {
+            background-position: 0 -40px;
+        }
+        .my_input {
+            position: absolute;
+            width: 80%;
+        }
+        .btn-warning {
+            background-color: #ffb000;
+        }
+        .flight_name {
+            line-height: 90px;
+            font-size: x-large;
+            font-weight: bold;
+        }
+        .main .c9{
+	     background-image: url("{% static 'img/pingche.jpg'%}");
+	     background-size: cover;
+	     text-align: center;
+	}
+    </style>
+    <style type="text/css">
+        label {
+            width: 180px;
+        }
+    </style>
+
+<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+table.hovertable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+table.hovertable th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.hovertable tr {
+    background-color:#d4e3e5;
+}
+table.hovertable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.table-head{padding-right:17px;background-color:#999;color:#000;}
+table.table-body{width:100%; height:300px;overflow-y:scroll;}
+table.table-head table,.table-body table{width:100%;}
+table.table-body table tr:nth-child(2n+1){background-color:#f2f2f2;}
+</style>
+
+
+
+<style type="text/css">
+.words{
+            font-size: 100px;margin-bottom:5px
+			letter-spacing: 10px;
+			position: absolute;
+			top:20%;
+			left: 10%;
+            color="white"
+			}
+	.imgw{position: relative;}
+</style>
+
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse" style = "height: 50px;">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header clearfix">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/search/">四川大学拼车系统</a>
+            </div>
+		</div>
+        <!--<div class="navbar-header">
+            <a class="navbar-brand" href="/search/">SCU Carpool</a>
+        </div>-->
+        
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right" style="font-size:15px">
+            
+            <li>
+                <a>
+                    &nbsp; {{ request.session.user_name }},欢迎您！
+                </a>
+            </li>
+            <li>
+                <a href="/search/">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 查询
+                </a>
+            </li>
+            <li>
+                <a href="/issue/">
+                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp; 发布
+                </a>
+            </li>
+            <li>
+                <a href="/personal/">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li>
+                <a href="/complaints/">
+                    <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>&nbsp; 投诉
+                </a>
+            </li>
+            
+            <li>
+                <a href="/logout/">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                </a>
+            </li>
+        </ul>
+
+<!--            <div class="c9">-->
+<!--				<div class="container" style="padding-top:8.5%; color: #FFFFFF;">-->
+<!--&lt;!&ndash;					<h1 class="hh1" style="font-size: 60px;margin-bottom:5px">四川大学拼车系统</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;					<span  style=";border-bottom:2px solid #FFFFFF;">________</span>&ndash;&gt;-->
+<!--					<p class="p3" style="font-size: 48px;margin-bottom:5px">安全出行，从我做起！</p>-->
+<!--                    <p class="p3" style="font-size: 24px;margin:0 auto;padding-top: 5%;">               </p>-->
+<!--				</div>-->
+<!--                </div>-->
+
+				<!-- <div class="container" style="padding-top:1.5%; color: #FFFFFF;">
+					<h1 class="hh1" style="font-size: 30px;margin-bottom:5px;padding-top: 1%;">四川大学拼车系统</h1>
+					
+					 <p class="p3" style="font-size: 15px;margin:0 auto;padding-top: 1%;">安全出行，从我做起！</p> 
+				</div> -->
+
+        <br>
+        <br>
+    </div>
+</nav>
+
+{% block content %}
+
+<div style="position: relative; width: 100%">
+<img src="{% static 'img/pingche.jpg'%}" class="img-responsive" style="margin:0 auto;margin-top: 0%;width:100%;opacity:0.96;"/>
+<!--    <img src="img/chengshi.jpg" class="img-responsive" style="margin:0 auto;margin-top: 0%;width:100%;opacity:0.96;"/>-->
+<span style="position: absolute; top: 5%; left: 30%;color:white;font-size: 80px;padding-top:8.5%;">安全出行，从我做起！</span>
+</div>
+{% endblock %}
+
+
+    <main id="content-outer"  >
+
+        <div class="layout_page" id="content-inner"  style="position:relative; padding-top:1.5%; font-size: 20px;">
+            <article id="page" style = "margin: 0 auto; width=50px;opacity:0.7;">
+                <div class = "article-container" >
+                        <div class="container"  style="position:relative;left: -200px; padding-top:3.5%; font-size: 20px;">
+
+{% block buttonstart %}
+
+{% endblock %}
+
+                        </div>
+            </div>
+
+               
+            </article>
+         </div>
+    </main>
+
+<!--<div class="imgw">-->
+<!--		<img src="img/chengshi.jpg" alt= "" width="100%">-->
+<!--		<div class="words">四川大学拼车系统</div>-->
+<!--	</div>-->
+
+
+<!--<div class="c">-->
+<!--    <div class="c9">-->
+<!--				<div class="container" style="padding-top:8.5%; color: #FFFFFF;">-->
+<!--					<h1 class="hh1" style="font-size: 60px;margin-bottom:5px">四川大学拼车系统</h1>-->
+<!--					<span  style=";border-bottom:2px solid #FFFFFF;">________</span>-->
+<!--					<p class="p3" style="font-size: 24px;margin:0 auto;padding-top: 5%;">安全出行，从我做起！</p>-->
+<!--				</div>-->
+<!--<img src="img/chengshi.jpg" class="img-responsive" style="margin:0 auto;margin-top: 0%;width:100%;opacity:0.9;"/>-->
+{% block  under%}
+            <!-- <div class="c12">
+				<div class="container">
+					<hr style="width: 100%;border: none;height: 1px;background-color: #E2E2E2;"/> -->
+					<!-- <div class="c12-1">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-top: 500px;">
+							<p style="font-size: 18px;">咨询电话：</p>
+							<p style="font-size: 24px;">17358566400</p>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-top: 500px;">
+							<p style="font-size: 24px;">地点：四川大学江安校区</p>
+							<p style="font-size: 14px;">我们将竭尽我们所能 推进安全出行!</p>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"style="padding-right: 0;padding-top: 500px;">
+                            <img src="{% static 'img/p1-27.jpg'%}" class="pull-right" />
+						</div>
+					</div> -->
+					<!-- <hr style="width: 100%;border: none;height: 1px;background-color: #E2E2E2;"/>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<span style="font-size: 16px;color: #61b0ff;">友情链接:      </span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<a style="font-size: 16px;color: #0088c2;" href="http://jwc.scu.edu.cn/">           四川大学教务处    </a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<a style="font-size: 16px;color: #0088c2;" href="http://xsc.scu.edu.cn/WEBSITE/XG">       四川大学学工部    </a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<a style="font-size: 16px;color: #61b0ff;" href="http://scu.edu.cn/">       四川大学官网    </a>
+                    </div>
+					<hr style="width: 100%;border: none;height: 1px;background-color: #E2E2E2;"/>
+				</div>
+			</div> -->
+
+    <div class="f2">
+        <div class="container">
+            <hr style="width: 100%;border: none;height: 2px;background-color: #E2E2E2;"/>
+            <center><p>四川大学安全拼车，从你我做起！</p></center>
+            <!-- <hr style="width: 100%;border: none;height: 2px;background-color: #E2E2E2;"/>
+            <p>版权所有 2013-2020 四川大学计算机学院计算机科学与技术  LLL小组 苏ICP备09008221号-3 版本: V3.6</p> -->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+</body>
+</html>

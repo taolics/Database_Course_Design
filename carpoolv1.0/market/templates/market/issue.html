@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>川大拼车</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    {% block style %}
+    {% endblock %}
+</head>
+{% endblock %}
+
+{% block buttonstart %}
+        <div class="col" style="position:relative;left: 250px; font-size: 25px;">
+            <form action="/issue/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ market_form.type.label_tag }}
+                    {{ market_form.type }}
+                </div>
+                <div class="form-group">
+                    {{ market_form.departure.label_tag }}
+                    {{ market_form.departure }}
+                </div>
+                <div class="form-group">
+                    {{ market_form.destination.label_tag }}
+                    {{ market_form.destination }}
+                </div>
+                <div class="form-group">
+                    {{ market_form.seats.label_tag }}
+                    {{ market_form.seats }}
+                </div>
+                <div class="form-group">
+                    {{ market_form.addinfo.label_tag }}
+                    {{ market_form.addinfo }}
+                </div>
+
+                <div class="input-append date form_datetime">
+                    {{ market_form.time.label_tag }}
+                    <input class="form-group" type="datetime-local" id="time1" name="time" placeholder="time"/>
+                    </div>
+                 <div style="margin: 0 auto;"><h4>座位数指除自己以外的剩余座位数！</h4></div>
+                 <div style="margin: 0 auto;"><h4>发布订单时请尽量写地点的完整名称，以便搜索!</h4></div>
+
+                <div class="form-group" style="position:relative; left: 150px;">
+                <button onclick = "return issueorder();" type="submit" class="btn btn-primary" style="width: 15%;">发布</button>
+                </div>
+            </form>
+        </div>
+
+    <script type="text/javascript" language="JavaScript">
+    		function issueorder()
+    		{
+    		     if(confirm("请尽量写地点的完整名称，以便搜索!请您检查所填信息是否正确，然后点击确认发布！"))
+    		     {
+    		         return true;
+    		     }else{
+    		         return false;
+    			 }
+    		}
+        </script>
+
+{% endblock %}
