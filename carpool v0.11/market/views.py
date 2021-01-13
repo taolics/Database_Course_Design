@@ -8,6 +8,10 @@ import datetime
 
 def issue(request):
     if(request.method=='POST'):
+        try:
+            userid = request.session['user_id']
+        except:
+            return redirect('/login/')
         market_form = forms.IssueForm(request.POST)
         username = request.session.get('user_name', None)
         addinfo = request.POST.get('addinfo')
@@ -34,7 +38,6 @@ def issue(request):
         new_book.save()
         new_user.save()
         
-        userid = request.session['user_id']
         new_order = models.Orders()
         new_order.userid = userid
         new_order.orderid = new_book.id
@@ -46,7 +49,10 @@ def issue(request):
 
 
 def list(request):
-    userid = request.session['user_id']
+    try:
+        userid = request.session['user_id']
+    except:
+        return redirect('/login/')
     tbooklist=models.Market.objects.all()
     orderids = []
     orders=models.Orders.orderid.filter(userid=userid)
@@ -158,7 +164,10 @@ def delete(request,id):
 
 def search(request):
     if(request.method=='POST'): 
-        userid = request.session['user_id']
+        try:
+            userid = request.session['user_id']
+        except:
+            return redirect('/login/')
         departure =request.POST.get('departure')
         destination =request.POST.get('destination')  
         time = request.POST.get('time')
@@ -187,7 +196,10 @@ def search(request):
 
 
 def cancel(request,id):
-    userid = request.session['user_id']
+    try:
+        userid = request.session['user_id']
+    except:
+        return redirect('/login/')
     now_market = models.Market.objects.get(id=id)
     if now_market is not None:
         orders = models.Orders.objects.filter(orderid=id)
@@ -214,7 +226,10 @@ def cancel(request,id):
 
 
 def order(request,id):
-    userid = request.session['user_id']
+    try:
+        userid = request.session['user_id']
+    except:
+        return redirect('/login/')
     order = models.Market.objects.get(id=id)
     orderid=order.id
     same_id = models.Orders.objects.filter(userid=userid, orderid=orderid)
@@ -276,7 +291,10 @@ def not_exist(request):
 
 def identifys(request):
     if(request.method=='POST'): 
-        userid = request.session['user_id']
+        try:
+            userid = request.session['user_id']
+        except:
+            return redirect('/login/')
         content = request.POST.get('content')
         stunumber = request.POST.get('stunumber')
         new_ident = models.identifyinfo()
