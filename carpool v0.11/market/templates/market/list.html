@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}订单中心{% endblock %}
+{% block content %}
+{% if booklist %}
+<br>
+<br>
+<br>
+<br>
+    <table border="1" class="hovertable" style="font-size: 20px; "align="center">
+        <thead>
+            <th>发布用户</th>
+            <th>时间</th>
+            <th>起始地</th>
+            <th>目的地</th>
+            <th>剩余座位</th>
+            <th>附加信息</th>
+            <th>安全系数</th>
+            <th>联系方式</th>
+            <th>操作</th>
+			
+        </thead>
+        <tbody>
+        {% for book in booklist %}
+        <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                <td>{{ book.username }}</td>
+				<td>{{ book.time }}</td>
+                <td>{{ book.departure }}</td>
+                <td>{{ book.destination }}</td>
+                <td>{{ book.seats }}</td>
+                <td>{{ book.addinfo }}</td>
+                <td>{{ book.safe }}</td>
+                <td><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={{ book.contact }}&amp;site=qq&amp;menu=yes" title="{{ book.contact }}">{{ book.contact }}</a></td>
+				{% if book.state %}
+				    <td>您已参与该订单</td>
+				{% else %}
+				    <td><a onclick = "return downorder();"  href="/order/{{ book.id }}">下单</a></td>
+				{% endif %}
+                
+            </tr>
+        {% endfor %}
+        <script type="text/javascript" language="JavaScript">
+        		function downorder()
+        		{
+        		     if(confirm("确定要参与该订单吗?"))
+        		     {
+        		         return true;
+        		     }else{
+        		         return false;
+        			 }
+        		}
+            </script>
+        </tbody>
+    </table>
+{% else %}
+<br><br><br><br>
+<div align="center", style="font-size: 50;">
+    <h2>没有查找到相关信息！
+    </h2 >
+    <h2>
+    <a href="/issue/" class="text-success " >
+        <ins>我要去发布该拼车信息</ins>
+    </a></h2>
+</div>
+{% endif %}
+
+{% endblock %}

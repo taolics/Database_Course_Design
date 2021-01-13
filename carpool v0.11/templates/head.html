@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>川大拼车</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    {% block style %}
+    {% endblock %}
+    {% block js %}
+    {% endblock %}
+</head>
+
+<style type="text/css">
+.words{
+            font-size: 100px;margin-bottom:5px
+			letter-spacing: 10px;
+			position: absolute;
+			top:20%;
+			left: 10%;
+            color="white"
+			}
+	.imgw{position: relative;}
+</style>
+
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/search/">SCU Carpool</a>
+        </div>
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right">
+            
+            <li>
+                <a>
+                    &nbsp; {{ request.session.user_name }},欢迎您！
+                </a>
+            </li>
+            <li>
+                <a href="/search/">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 查询
+                </a>
+            </li>
+            <li>
+                <a href="/issue/">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 发布
+                </a>
+            </li>
+            <li>
+                <a href="/personal/">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li>
+                <a href="/complaints/">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 举报
+                </a>
+            </li>
+            
+            <li>
+                <a href="/logout/">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                </a>
+            </li>
+        </ul>
+
+<!--            <div class="c9">-->
+<!--				<div class="container" style="padding-top:8.5%; color: #FFFFFF;">-->
+<!--&lt;!&ndash;					<h1 class="hh1" style="font-size: 60px;margin-bottom:5px">四川大学拼车系统</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;					<span  style=";border-bottom:2px solid #FFFFFF;">________</span>&ndash;&gt;-->
+<!--					<p class="p3" style="font-size: 48px;margin-bottom:5px">安全出行，从我做起！</p>-->
+<!--                    <p class="p3" style="font-size: 24px;margin:0 auto;padding-top: 5%;">               </p>-->
+<!--				</div>-->
+<!--                </div>-->
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+<!--<div class="imgw">-->
+<!--		<img src="img/chengshi.jpg" alt= "" width="100%">-->
+<!--		<div class="words">四川大学拼车系统</div>-->
+<!--	</div>-->
+
+
+<!--<div class="c">-->
+<!--    <div class="c9">-->
+<!--				<div class="container" style="padding-top:8.5%; color: #FFFFFF;">-->
+<!--					<h1 class="hh1" style="font-size: 60px;margin-bottom:5px">四川大学拼车系统</h1>-->
+<!--					<span  style=";border-bottom:2px solid #FFFFFF;">________</span>-->
+<!--					<p class="p3" style="font-size: 24px;margin:0 auto;padding-top: 5%;">安全出行，从我做起！</p>-->
+<!--				</div>-->
+<!--<img src="img/chengshi.jpg" class="img-responsive" style="margin:0 auto;margin-top: 0%;width:100%;opacity:0.9;"/>-->
+            <div class="c12">
+				<div class="container">
+					<hr style="width: 100%;border: none;height: 1px;background-color: #E2E2E2;"/>
+					<div class="c12-1">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+							<p style="font-size: 18px;">咨询电话：</p>
+							<p style="font-size: 24px;">17358566400</p>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+							<p style="font-size: 24px;">地点：四川大学江安校区</p>
+							<p style="font-size: 14px;">我们将竭尽我们所能 推进安全出行!</p>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"style="padding-right: 0;">
+                            <img src="{% static 'img/p1-27.jpg'%}" class="pull-right" />
+<!--							<img src="img/p1-27.jpg" class="pull-right" />-->
+						</div>
+					</div>
+					<hr style="width: 100%;border: none;height: 1px;background-color: #E2E2E2;"/>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<span style="font-size: 16px;color: #61b0ff;">友情链接:      </span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<a style="font-size: 16px;color: #0088c2;" href="http://jwc.scu.edu.cn/">           四川大学教务处    </a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<a style="font-size: 16px;color: #0088c2;" href="http://xsc.scu.edu.cn/WEBSITE/XG">       四川大学学工部    </a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="line-height: 36px;padding-left: 0;padding-bottom: 25px;">
+					<a style="font-size: 16px;color: #61b0ff;" href="http://scu.edu.cn/">       四川大学官网    </a>
+                    </div>
+					<hr style="width: 100%;border: none;height: 1px;background-color: #E2E2E2;"/>
+				</div>
+			</div>
+
+    <div class="f2">
+        <div class="container">
+            <hr style="width: 100%;border: none;height: 2px;background-color: #E2E2E2;"/>
+            <p>四川大学安全拼车，从你我做起！</p>
+            <hr style="width: 100%;border: none;height: 2px;background-color: #E2E2E2;"/>
+            <p>版权所有 2013-2020 四川大学计算机学院计算机科学与技术  LLL小组 苏ICP备09008221号-3 版本: V3.6</p>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+</html>
