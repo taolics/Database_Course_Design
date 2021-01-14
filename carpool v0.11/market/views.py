@@ -5,6 +5,7 @@ from . import models
 from login import models as login_models
 from dateutil.relativedelta import relativedelta
 import datetime
+import os
 
 def issue(request):
     if(request.method=='POST'):
@@ -377,3 +378,30 @@ def idprreject(request,id):
         new_ident.adminid = adminid
         new_ident.save()
         return redirect('/identprocess/') 
+
+def upload(request):
+    if request.method == "POST":
+        error = ""
+        photo = request.FILES.get("avatar")
+        # photo 获取到的上传文件对象
+        if photo:
+            if photo.multiple_chunks():  # 判断上传文件大于2.5MB的大文件
+                # 为真
+                    print("图像必须小于2.5MB！")
+            else:
+                if not os.path.exists('media'):
+                    os.mkdir('media')
+                #拼接路径
+                imgpath = str(request.session['user_id']) + '.jpg'
+                with open(os.path.join(os.getcwd(),'media',imgpath),'wb') as fw:
+                # photo.read() #一次性读取文件到内存
+                # fw.write(photo.read())
+                    #分块读取，性能高
+                    for ck in photo.chunks():
+                        fw.write(ck)
+                new_user = login_models.User.objects.get(id=request.session['user_id'])
+                new_user.imgpath = imgpath
+                new_user.save()
+        else:
+            error = "文件上传为空"
+        return redirect('/personal/') 

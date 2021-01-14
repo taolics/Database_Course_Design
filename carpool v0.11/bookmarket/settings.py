@@ -26,7 +26,7 @@ SECRET_KEY = 'jt31fwn1-c5g&6jtstjn^c&l-k+s-04(cq8a&qm3hqgltfqaq('
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ALLOW_UPLOAD = ['jpg', 'png', 'jpeg']
 
 # Application definition
 
@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -128,3 +129,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
 os.path.join(BASE_DIR,'static'), ]
+
+MEDIA_URL = '/media/'
+# 设置上传文件的路径
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   # 指定根目录

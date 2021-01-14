@@ -1,7 +1,10 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 from login import views as loginviews
 from market import views as marketviews
+from django.views.static import serve  # 上传文件处理函数
+from . import settings  # 从配置中导入MEDIA_ROOT
+
 
 urlpatterns = [
     path('search/',marketviews.search),
@@ -29,4 +32,8 @@ urlpatterns = [
     path('check/<int:id>', marketviews.check),
     path('not_exist/', marketviews.not_exist),
     path('terms/', loginviews.terms),
+    path('upload/', marketviews.upload),
+    
+    re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
+
 ]

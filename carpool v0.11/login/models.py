@@ -1,5 +1,7 @@
 from django.db import models
+import os
 
+defaultpath = os.path.join(os.getcwd(),'userimage','default.jpg')
 # Create your models here.
 class User(models.Model):
     gender=(
@@ -15,6 +17,7 @@ class User(models.Model):
     c_time=models.DateTimeField(auto_now_add=True)
     state = models.IntegerField(default=0)
     credit = models.IntegerField(default=0)
+    imgpath = models.CharField(max_length=128,default=defaultpath)
 
     def __str__(self):
         return self.name

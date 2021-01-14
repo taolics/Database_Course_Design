@@ -35,7 +35,12 @@
             <div class="contact_info">
 
                 <div class="map">
-                    <img src="{% static 'personal/images/touxiang.jpg' %}" alt="" height="200px" width="200px">
+                    <img src="{{ MEDIA_URL }}{{ user_info.imgpath }}" alt="" height="200px" width="200px">
+                    <form action="/upload/" method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <input type="file" name="avatar" value="更换图像" style="width: 200px;height:30px;">
+                        <input type="submit" value="上传图像" >
+                    </form>
                 </div>
                 <div class="company_address" style="font-size: 20px;margin-left: 10px;margin-top: 0px;padding-top: 0px;">
 
