@@ -1,7 +1,7 @@
 from django.db import models
 import os
 
-defaultpath = os.path.join(os.getcwd(),'userimage','default.jpg')
+defaultpath = 'default.jpg'
 # Create your models here.
 class User(models.Model):
     gender=(

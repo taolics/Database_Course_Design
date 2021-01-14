@@ -1,4 +1,8 @@
 * 本文档截取课程设计报告详细设计部分
+* carpool v0.12 为本地运行版本（win10 + mysql）
+* carpool v1.0 为远程服务器端运行版本（centos7 + mysql）【服务器现已到期2021.1.14】
+
+* update on 2021.1.14 - add the function of uploading avatar on personal center
 
 
 
